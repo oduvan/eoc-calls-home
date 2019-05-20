@@ -1,5 +1,12 @@
+from collections import defaultdict
+from math import ceil
+
 def total_cost(calls):
-    return 0
+    daily_minutes = defaultdict(lambda: 0)
+    for call in calls:
+        day, _, duration = call.split(' ')
+        daily_minutes[day] += ceil(int(duration) / 60)
+    return sum((2*m - min(m, 100)) for m in daily_minutes.values())
 
 
 if __name__ == '__main__':
